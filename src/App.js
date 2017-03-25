@@ -13,4 +13,14 @@ class App extends React.Component {
   }
 }
 
+App.propTypes = {
+  txt: React.PropTypes.string,
+  cat: React.PropTypes.number.isRequired
+}
+
+App.defaultProps = {
+  txt: 'some default text',
+  cat: 5
+}
+
 export default App;
