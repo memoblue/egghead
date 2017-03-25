@@ -23,11 +23,15 @@ class App extends React.Component {
         <p>A componenet's render methode can only return one <code>React.createElement()</code> so we nest the JSX in a top <code>div</code>.</p>
         <p>{propTxt}</p>
         <p>{stateTxt}</p>
-        <input onChange={this.myUpdate.bind(this)} />
+        <Widget update={this.myUpdate.bind(this)}/>
       </div>
     );
   }
 }
+
+const Widget = (props) => {
+  return <input onChange={props.update} />
+};
 
 App.propTypes = {
   txt: React.PropTypes.string,
