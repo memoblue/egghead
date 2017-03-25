@@ -3,14 +3,22 @@ import React from 'react';
 class App extends React.Component {
   constructor() {
     super(); // give `this` the component's context instead of parent class
+    this.myEventHandler = this.myEventHandler.bind(this);
     this.state = {
-      txt: 'This is some text from state.'
+      txt: 'This is some text from state.',
+      eventName: '---'
     }
   }
 
   myUpdate(e) {
     this.setState({
       txt: e.target.value
+    })
+  }
+
+  myEventHandler(e) {
+    this.setState({
+      eventName: e.type
     })
   }
 
@@ -26,6 +34,16 @@ class App extends React.Component {
         <MyLink>
           This is <Widget update={this.myUpdate.bind(this)}/> pretty cool
         </MyLink>
+        <textarea
+          onFocus={this.myEventHandler}
+          onBlur={this.myEventHandler}
+          onKeyPress={this.myEventHandler}
+          onCopy={this.myEventHandler}
+          onCut={this.myEventHandler}
+          onPaste={this.myEventHandler}
+          cols="30"
+          rows="10" />
+        <p>{this.state.eventName}</p>
       </div>
     );
   }
