@@ -22,6 +22,12 @@ class App extends React.Component {
     })
   }
 
+  clicky() {
+    this.setState({
+      eventName: this.myInput.value
+    });
+  }
+
   render() {
     const propTxt = this.props.txt;
     const stateTxt = this.state.txt;
@@ -32,7 +38,7 @@ class App extends React.Component {
         <p>{propTxt}</p>
         <p>{stateTxt}</p>
         <MyLink>
-          This is <Widget update={this.myUpdate.bind(this)}/> pretty cool
+          This is <Widget update={this.myUpdate.bind(this)} /> pretty cool
         </MyLink>
         <textarea
           onFocus={this.myEventHandler}
@@ -43,7 +49,9 @@ class App extends React.Component {
           onPaste={this.myEventHandler}
           cols="30"
           rows="10" />
-        <p>{this.state.eventName}</p>
+        <p>Event Name: {this.state.eventName}</p>
+        <input ref={ node => this.myInput = node }/>
+        <button onClick={this.clicky.bind(this)}>Change Even Name</button>
       </div>
     );
   }
