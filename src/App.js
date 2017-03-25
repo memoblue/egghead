@@ -23,7 +23,9 @@ class App extends React.Component {
         <p>A componenet's render methode can only return one <code>React.createElement()</code> so we nest the JSX in a top <code>div</code>.</p>
         <p>{propTxt}</p>
         <p>{stateTxt}</p>
-        <Widget update={this.myUpdate.bind(this)}/>
+        <MyLink>
+          This is <Widget update={this.myUpdate.bind(this)}/> pretty cool
+        </MyLink>
       </div>
     );
   }
@@ -32,6 +34,8 @@ class App extends React.Component {
 const Widget = (props) => {
   return <input onChange={props.update} />
 };
+
+const MyLink = (props) => <div className="whoop">{props.children}</div>
 
 App.propTypes = {
   txt: React.PropTypes.string,
