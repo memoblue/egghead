@@ -1,9 +1,5 @@
 import React from 'react';
 
-class App extends React.Component {
-  render() {
-    return <h1>A class component</h1>
-  }
-}
+const App = () => <h1>bloppy</h1>
 
 export default App;
