@@ -7,7 +7,8 @@ class App extends React.Component {
     this.state = {
       txt: 'This is some text from state.',
       eventName: '---',
-      people: []
+      people: [],
+      color: 0
     }
   }
 
@@ -41,6 +42,12 @@ class App extends React.Component {
     this.setState({ filter: e.target.value });
   }
 
+  updateColor(e) {
+    this.setState({
+      color: this.red.colorInput.value
+    });
+  }
+
   render() {
     const propTxt = this.props.txt;
     const stateTxt = this.state.txt;
@@ -67,15 +74,42 @@ class App extends React.Component {
           cols="30"
           rows="10" />
         <p>Event Name: {this.state.eventName}</p>
-        <input ref={ node => this.myInput = node }/>
+        <input ref={ node => this.myInput = node } />
         <button onClick={this.clicky.bind(this)}>Change Even Name</button>
         <h2>Filter Names</h2>
         <input type="text" onChange={this.filterNames.bind(this)} />
         <ul>
           {people.map(person => <StarWarsPerson key={person.name} name={person.name} />)}
         </ul>
+        <hr />
+        <NumInput
+          ref={component => this.red = component}
+          min={0}
+          max={255}
+          step={1}
+          val={+this.state.color}
+          type="range"
+          label="Yellow"
+          update={this.updateColor.bind(this)} />
       </div>
     );
+  }
+}
+
+class NumInput extends React.Component {
+  render() {
+    return (
+      <div>
+        <input
+          ref={node => this.colorInput = node}
+          type={this.props.type}
+          min={this.props.min}
+          max={this.props.max}
+          step={this.props.step}
+          defaultValue={this.props.val}
+          onChange={this.props.update} />
+        {this.props.label && <label>{this.props.label} - {this.props.val}</label> }
+      </div>);
   }
 }
 
