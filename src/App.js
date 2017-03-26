@@ -37,10 +37,17 @@ class App extends React.Component {
     });
   }
 
+  filterNames(e) {
+    this.setState({ filter: e.target.value });
+  }
+
   render() {
     const propTxt = this.props.txt;
     const stateTxt = this.state.txt;
-    const people = this.state.people;
+    let people = this.state.people;
+    if(this.state.filter) {
+      people = people.filter(person => person.name.toLowerCase().includes(this.state.filter.toLowerCase()));
+    }
     return (
       <div>
         <h1>A class component</h1>
@@ -62,6 +69,8 @@ class App extends React.Component {
         <p>Event Name: {this.state.eventName}</p>
         <input ref={ node => this.myInput = node }/>
         <button onClick={this.clicky.bind(this)}>Change Even Name</button>
+        <h2>Filter Names</h2>
+        <input type="text" onChange={this.filterNames.bind(this)} />
         <ul>
           {people.map(person => <StarWarsPerson key={person.name} name={person.name} />)}
         </ul>
