@@ -2,7 +2,7 @@
 
 ---
 
-# Stuff added by `create-react-app` package:
+**Stuff added by `create-react-app` package:**
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
