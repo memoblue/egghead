@@ -6,14 +6,23 @@ class App extends React.Component {
     this.myEventHandler = this.myEventHandler.bind(this);
     this.state = {
       txt: 'This is some text from state.',
-      eventName: '---'
+      eventName: '---',
+      people: []
     }
+  }
+
+  componentWillMount() {
+    fetch('http://swapi.co/api/people/?format=json')
+      .then(response => response.json())
+      // destructuring assignment: get "results" from API and rename to "items"
+      .then(({results: items}) => this.setState({people: items}));
   }
 
   myUpdate(e) {
     this.setState({
       txt: e.target.value
     })
+    console.log(this.state);
   }
 
   myEventHandler(e) {
@@ -31,6 +40,7 @@ class App extends React.Component {
   render() {
     const propTxt = this.props.txt;
     const stateTxt = this.state.txt;
+    const people = this.state.people;
     return (
       <div>
         <h1>A class component</h1>
@@ -52,6 +62,9 @@ class App extends React.Component {
         <p>Event Name: {this.state.eventName}</p>
         <input ref={ node => this.myInput = node }/>
         <button onClick={this.clicky.bind(this)}>Change Even Name</button>
+        <ul>
+          {people.map(person => <StarWarsPerson key={person.name} name={person.name} />)}
+        </ul>
       </div>
     );
   }
@@ -62,6 +75,8 @@ const Widget = (props) => {
 };
 
 const MyLink = (props) => <div className="whoop">{props.children}</div>
+
+const StarWarsPerson = (props) => <li>{props.name}</li>
 
 App.propTypes = {
   txt: React.PropTypes.string,
